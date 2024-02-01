@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alternatif', function (Blueprint $table) {
+        Schema::create('priority_vektor_alternatif', function (Blueprint $table) {
             $table->id();
-            $table->string('kode');
-            $table->string('nama');
-            $table->foreignId('created_by')->nullable()->constrained('users')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('alternatif_id')->nullable()->constrained('alternatifs')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('kriteria_id')->nullable()->constrained('kriterias')->cascadeOnUpdate()->nullOnDelete();
+            $table->double('nilai');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alternatif');
+        Schema::dropIfExists('priority_vektor_alternatif');
     }
 };

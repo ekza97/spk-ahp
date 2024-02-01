@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teacher_has_mapels', function (Blueprint $table) {
+        Schema::create('random_index', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('teacher_id')->nullable()->constrained('teachers')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('mapel_id')->nullable()->constrained('mapels')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->integer('jumlah');
+            $table->double('nilai');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teacher_has_mapels');
+        Schema::dropIfExists('random_index');
     }
 };

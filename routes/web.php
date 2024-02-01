@@ -1,5 +1,7 @@
 <?php
 
+use App\Helpers\Helper;
+use App\Models\Kriteria;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackApp\ExamController;
@@ -13,7 +15,9 @@ use App\Http\Controllers\BackApp\TeacherController;
 use App\Http\Controllers\BackApp\KriteriaController;
 use App\Http\Controllers\BackApp\AlternatifController;
 use App\Http\Controllers\BackApp\PermissionController;
+use App\Http\Controllers\BackApp\BobotKriteriaController;
 use App\Http\Controllers\BackApp\StudentHasExamController;
+use App\Http\Controllers\BackApp\BobotAlternatifController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +43,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('kriteria', KriteriaController::class)->except(['create','show']);
     Route::resource('alternatif', AlternatifController::class)->except(['create','show']);
+    Route::resource('bobot-kriteria', BobotKriteriaController::class)->except(['create','show']);
+    Route::get('bobot-kriteria/matriks', function () {
+        // dd(Helper::getKriteriaNama(4));
+        $n = Kriteria::count();
+        $matrik = [];
+        return view('backapp.kriteria.matriks',compact('n','matrik'));
+    });
 
     //Master Data Menu
     Route::resource('courses', MapelController::class)->except(['create','show']);

@@ -9,6 +9,8 @@ class Alternatif extends Model
 {
     use HasFactory;
 
+    protected $table = 'alternatif';
+
     protected $fillable = [
         'kode',
         'nama',

@@ -22,8 +22,8 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ route('questions.index') }}"
-                    class="menu-link {{ request()->is('questions*') ? 'text-white' : '' }}">
+                <a href="{{ route('bobot-kriteria.index') }}"
+                    class="menu-link {{ request()->is('bobot-kriteria*') ? 'text-white' : '' }}">
                     <i class="bi bi-clipboard-data"></i>
                     <span>Perbandingan Kriteria</span>
                 </a>

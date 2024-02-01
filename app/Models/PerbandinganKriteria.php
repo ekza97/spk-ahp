@@ -5,12 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TeacherHasMapel extends Model
+class PerbandinganKriteria extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'teacher_id',
-        'mapel_id'
-    ];
+    protected $table = 'perbandingan_kriteria';
 }

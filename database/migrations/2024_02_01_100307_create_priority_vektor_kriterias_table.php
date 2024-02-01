@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mapels', function (Blueprint $table) {
+        Schema::create('priority_vektor_kriteria', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('description');
+            $table->foreignId('kriteria_id')->nullable()->constrained('kriterias')->cascadeOnUpdate()->nullOnDelete();
+            $table->double('nilai');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mapels');
+        Schema::dropIfExists('priority_vektor_kriteria');
     }
 };
