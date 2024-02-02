@@ -10,4 +10,11 @@ class PerbandinganAlternatif extends Model
     use HasFactory;
 
     protected $table = 'perbandingan_alternatif';
+
+    protected $fillable = [
+        'alternatif_one',
+        'alternatif_two',
+        'kriteria_id',
+        'nilai'
+    ];
 }

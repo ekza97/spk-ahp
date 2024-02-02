@@ -21,26 +21,26 @@
                     <!-- Form Course Modal -->
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="ui header">Matriks Perbandingan Berpasangan</h3>
-                            <table class="ui collapsing celled blue table">
+                            <h4>Matriks Perbandingan Berpasangan</h4>
+                            <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Kriteria</th>
-                                        <th>
-                                            @for ($i = 0; $i <= ($n-1); $i++)
+                                        @for ($i = 0; $i <= $n - 1; $i++)
+                                            <th>
                                                 {{ Helper::getKriteriaNama($i) }}
-                                            @endfor
-                                        </th>
+                                            </th>
+                                        @endfor
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @for ($x = 0; $x <= ($n-1); $i++)
+                                    @for ($x = 0; $x <= $n - 1; $x++)
                                         <tr>
                                             <td>
-                                                {{ Helper::getKriteriaNama($i) }}
+                                                {{ Helper::getKriteriaNama($x) }}
                                             </td>
-                                            @for ($y = 0; $y <= ($n-1); $i++)
-                                                {{-- <td>{{ round($matrik[$x][$y],5) }}</td> --}}
+                                            @for ($y = 0; $y <= $n - 1; $y++)
+                                                <td>{{ round($matrik[$x][$y], 5) }}</td>
                                             @endfor
                                         </tr>
                                     @endfor
@@ -48,11 +48,9 @@
                                 <tfoot>
                                     <tr>
                                         <th>Jumlah</th>
-                                        <?php
-                                        for ($i = 0; $i <= ($n-1); $i++) {
-                                            echo '<th>' . round($jmlmpb[$i], 5) . '</th>';
-                                        }
-                                        ?>
+                                        @for ($i = 0; $i <= $n - 1; $i++)
+                                            <th>{{ round($jmlmpb[$i], 5) }}</th>
+                                        @endfor
                                     </tr>
                                 </tfoot>
                             </table>
@@ -60,88 +58,70 @@
 
                             <br>
 
-                            <h3 class="ui header">Matriks Nilai Kriteria</h3>
-                            <table class="ui celled red table">
+                            <h4>Matriks Nilai Kriteria</h4>
+                            <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Kriteria</th>
-                                        <?php
-                                        for ($i = 0; $i <= $n - 1; $i++) {
-                                            echo '<th>' . Helper::getKriteriaNama($i) . '</th>';
-                                        }
-                                        ?>
+                                        @for ($i = 0; $i <= $n - 1; $i++)
+                                            <th>{{ Helper::getKriteriaNama($i) }}</th>
+                                        @endfor
                                         <th>Jumlah</th>
                                         <th>Priority Vector</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    for ($x = 0; $x <= $n - 1; $x++) {
-                                        echo '<tr>';
-                                        echo '<td>' . Helper::getKriteriaNama($x) . '</td>';
-                                        for ($y = 0; $y <= $n - 1; $y++) {
-                                            echo '<td>' . round($matrikb[$x][$y], 5) . '</td>';
-                                        }
-                                    
-                                        echo '<td>' . round($jmlmnk[$x], 5) . '</td>';
-                                        echo '<td>' . round($pv[$x], 5) . '</td>';
-                                    
-                                        echo '</tr>';
-                                    }
-                                    ?>
+                                    @for ($x = 0; $x <= $n - 1; $x++)
+                                        <tr>
+                                            <td>{{ Helper::getKriteriaNama($x) }}</td>
+                                            @for ($y = 0; $y <= $n - 1; $y++)
+                                                <td>{{ round($matrikb[$x][$y], 5) }}</td>
+                                            @endfor
+                                            <td>{{ round($jmlmnk[$x], 5) }}</td>
+                                            <td>{{ round($pv[$x], 5) }}</td>
 
+                                        </tr>
+                                    @endfor
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th colspan="<?php echo $n + 2; ?>">Principe Eigen Vector (λ maks)</th>
-                                        <th><?php echo round($eigenvektor, 5); ?></th>
+                                        <th colspan="{{ $n + 2 }}">Principe Eigen Vector (λ maks)</th>
+                                        <th>{{ round($eigenvektor, 5) }}</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="<?php echo $n + 2; ?>">Consistency Index</th>
-                                        <th><?php echo round($consIndex, 5); ?></th>
+                                        <th colspan="{{ $n + 2 }}">Consistency Index</th>
+                                        <th>{{ round($consIndex, 5) }}</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="<?php echo $n + 2; ?>">Consistency Ratio</th>
-                                        <th><?php echo round($consRatio * 100, 2); ?> %</th>
+                                        <th colspan="{{ $n + 2 }}">Consistency Ratio</th>
+                                        <th>{{ round($consRatio * 100, 2) }} %</th>
                                     </tr>
                                 </tfoot>
                             </table>
-
-                            <?php
-	if ($consRatio > 0.1) {
-?>
-                            <div class="ui icon red message">
-                                <i class="close icon"></i>
-                                <i class="warning circle icon"></i>
-                                <div class="content">
-                                    <div class="header">
-                                        Nilai Consistency Ratio melebihi 10% !!!
+                            @if ($consRatio > 0.1)
+                                <div class="alert alert-danger fade show" role="alert">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                    <div class="d-inline-flex align-items-center">
+                                        <strong class="me-2">Nilai Consistency Ratio melebihi 10% !!!</strong>
                                     </div>
-                                    <p>Mohon input kembali tabel perbandingan...</p>
+                                    <p class="mb-0">Mohon input kembali tabel perbandingan...</p>
                                 </div>
-                            </div>
 
-                            <br>
 
-                            <a href='javascript:history.back()'>
-                                <button class="ui left labeled icon button">
-                                    <i class="left arrow icon"></i>
-                                    Kembali
-                                </button>
-                            </a>
-
-                            <?php
-	} else {}
-
-?>
-                            <br>
-
-                            <a href="bobot.php?c=1">
-                                <button class="ui right labeled icon button" style="float: right;">
-                                    <i class="right arrow icon"></i>
-                                    Lanjut
-                                </button>
-                            </a>
+                                <a href='javascript:history.back()'>
+                                    <button class="btn btn-secondary">
+                                        <i class="bi bi-arrow-left"></i>
+                                        Kembali
+                                    </button>
+                                </a>
+                            @else
+                                <a href="">
+                                    <button class="btn btn-primary" style="float: right;">
+                                        <i class="bi bi-arrow-right"></i>
+                                        Lanjut
+                                    </button>
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <!--/ Form Course Modal -->

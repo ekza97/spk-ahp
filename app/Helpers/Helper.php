@@ -15,15 +15,18 @@ use App\Models\TandaTangan;
 use App\Mail\NotifDokumenTTD;
 use App\Models\PerbandinganAlternatif;
 use App\Models\PerbandinganKriteria;
+use App\Models\RandomIndex;
 use App\Models\StudentHasExam;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\TTDNotification;
 use PhpOffice\PhpWord\TemplateProcessor;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class Helper{
+class Helper
+{
 
-    public static function appTitle($title){
+    public static function appTitle($title)
+    {
         return preg_replace('/(?<!\ )[A-Z]/', ' $0', $title);
     }
 
@@ -36,7 +39,8 @@ class Helper{
         }
     }
 
-    public static function roles(){
+    public static function roles()
+    {
         return Role::all();
     }
 
@@ -45,11 +49,13 @@ class Helper{
         return Carbon::parse($data)->format($format);
     }
 
-    public static function number($data){
-        return number_format($data,0,'','.');
+    public static function number($data)
+    {
+        return number_format($data, 0, '', '.');
     }
 
-    public static function dateIndo($tanggal){
+    public static function dateIndo($tanggal)
+    {
         $tanggal = Carbon::parse($tanggal)->format('Y-m-d');
         $bulan = [
             1 =>   'Januari',
@@ -68,7 +74,7 @@ class Helper{
         //format tanggal 2022-10-20
         $pecahkan = explode('-', $tanggal);
 
-        return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
+        return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
     }
 
     public static function delMask($separator, $data)
@@ -87,19 +93,22 @@ class Helper{
         return round($bytes, 2) . ' ' . $units[$i];
     }
 
-    public static function monthRomawi($month){
-        $monthArr = [1=>"I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII"];
+    public static function monthRomawi($month)
+    {
+        $monthArr = [1 => "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
         return $monthArr[$month];
     }
 
-    public static function getNoUrut($no_surat){
-        $nomor = explode('/',$no_surat);
-        $urut = explode('.',$nomor[0]);
+    public static function getNoUrut($no_surat)
+    {
+        $nomor = explode('/', $no_surat);
+        $urut = explode('.', $nomor[0]);
         return (int)$urut[1];
     }
 
-    public static function getFilename($file){
-        $name = explode('/',$file);
+    public static function getFilename($file)
+    {
+        $name = explode('/', $file);
         end($name);         // move the internal pointer to the end of the pecah
         $key = key($name);
         return $name[$key];
@@ -145,6 +154,40 @@ class Helper{
             ->value('nilai');
 
         return $nilai ? $nilai : 1;
+    }
+
+    public static function getJumlah($jenis)
+    {
+        $n = $jenis === 'kriteria' ? Kriteria::count() : Alternatif::count();
+
+        return $n;
+    }
+
+    public static function getEigenVector($matrik_a, $matrik_b, $n)
+    {
+        $eigenVector = 0;
+        for ($i = 0; $i < $n; $i++) {
+            $eigenVector += ($matrik_a[$i] * (($matrik_b[$i]) / $n));
+        }
+
+        return $eigenVector;
+    }
+
+    public static function getConsIndex($matrik_a, $matrik_b, $n)
+    {
+        $eigenVector = Helper::getEigenVector($matrik_a, $matrik_b, $n);
+        $consIndex = ($eigenVector - $n) / ($n - 1);
+
+        return $consIndex;
+    }
+
+    public static function getConsRatio($matrik_a, $matrik_b, $n)
+    {
+        $consIndex = Helper::getConsIndex($matrik_a, $matrik_b, $n);
+        $nilaiIR = RandomIndex::where('jumlah', $n)->value('nilai');
+        $consRatio = $consIndex / $nilaiIR;
+
+        return $consRatio;
     }
 
     public static function showTabelPerbandingan($jenis, $kriteria)

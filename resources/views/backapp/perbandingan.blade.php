@@ -1,7 +1,7 @@
 @php
     $urut = 0;
 @endphp
-<form action="bobot-kriteria/matriks" method="post">
+<form action="{{ route('bobot-kriteria.store') }}" method="post">
     @csrf
     <table class="table table-bordered table-hover">
         <thead>
@@ -54,9 +54,3 @@
         </button>
     </div>
 </form>
-<div>
-    <a href="bobot-kriteria/matriks" class="btn btn-info btn-block">
-        <i class="bi bi-save"></i>
-        Simpan dan Lihat Matriks
-    </a>
-</div>
