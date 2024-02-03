@@ -15,6 +15,8 @@ use App\Models\TandaTangan;
 use App\Mail\NotifDokumenTTD;
 use App\Models\PerbandinganAlternatif;
 use App\Models\PerbandinganKriteria;
+use App\Models\PriorityVektorAlternatif;
+use App\Models\PriorityVektorKriteria;
 use App\Models\RandomIndex;
 use App\Models\StudentHasExam;
 use Illuminate\Support\Facades\Mail;
@@ -138,19 +140,42 @@ class Helper
         return $nama[$no_urut];
     }
 
+    public static function getAlternatifPV($id_alternatif, $id_kriteria)
+    {
+        $pv = PriorityVektorAlternatif::where('alternatif_id', $id_alternatif)
+            ->where('kriteria_id', $id_kriteria)
+            ->value('nilai');
+        return $pv;
+    }
+
+    public static function getKriteriaPV($id_kriteria)
+    {
+        $pv = PriorityVektorKriteria::where('kriteria_id', $id_kriteria)
+            ->value('nilai');
+        return $pv;
+    }
+
     public static function getNilaiPerbandinganKriteria($kriteria1, $kriteria2)
     {
-        $nilai = PerbandinganKriteria::where('kriteria_one', $kriteria1)
-            ->where('kriteria_two', $kriteria2)
+        $kriteria_one = Helper::getKriteriaID($kriteria1);
+        $kriteria_two = Helper::getKriteriaID($kriteria2);
+
+        $nilai = PerbandinganKriteria::where('kriteria_one', $kriteria_one)
+            ->where('kriteria_two', $kriteria_two)
             ->value('nilai');
 
         return $nilai ? $nilai : 1;
     }
 
-    public static function getNilaiPerbandinganAlternatif($alternatif1, $alternatif2)
+    public static function getNilaiPerbandinganAlternatif($alternatif1, $alternatif2, $kriteriaId)
     {
-        $nilai = PerbandinganAlternatif::where('alternatif_one', $alternatif1)
-            ->where('alternatif_two', $alternatif2)
+        $alternatif_one = Helper::getAlternatifID($alternatif1);
+        $alternatif_two = Helper::getAlternatifID($alternatif2);
+        $id_kriteria = Helper::getKriteriaID($kriteriaId);
+
+        $nilai = PerbandinganAlternatif::where('alternatif_one', $alternatif_one)
+            ->where('alternatif_two', $alternatif_two)
+            ->where('kriteria_id', $id_kriteria)
             ->value('nilai');
 
         return $nilai ? $nilai : 1;
@@ -190,11 +215,11 @@ class Helper
         return $consRatio;
     }
 
-    public static function showTabelPerbandingan($jenis, $kriteria)
+    public static function showTabelPerbandingan($jenis)
     {
-        $n = $kriteria === 'kriteria' ? Kriteria::count() : Alternatif::count();
-        $pilihan = $kriteria === 'kriteria' ? Kriteria::pluck('nama')->toArray() : Alternatif::pluck('nama')->toArray();
+        $n = $jenis === 'kriteria' ? Kriteria::count() : Alternatif::count();
+        $pilihan = $jenis === 'kriteria' ? Kriteria::pluck('nama')->toArray() : Alternatif::pluck('nama')->toArray();
 
-        return view('backapp.perbandingan', compact('jenis', 'kriteria', 'n', 'pilihan'));
+        return view('backapp.perbandingan', compact('jenis', 'n', 'pilihan'));
     }
 }

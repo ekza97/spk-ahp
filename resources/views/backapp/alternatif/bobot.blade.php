@@ -6,7 +6,7 @@
         <div class="page-heading">
             @component('components.breadcrumb')
                 @slot('menu')
-                    Perbandingan Kriteria
+                    Perbandingan Alternatif &rarr; {{ Helper::getKriteriaNama($jenis-1) }}
                 @endslot
                 @slot('url_sub1')
                     {{ route('home') }}
@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            {{ Helper::showTabelPerbandingan('kriteria') }}
+                            {{ Helper::showTabelPerbandingan($jenis) }}
                         </div>
                     </div>
                 </div>

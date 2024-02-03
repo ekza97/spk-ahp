@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('priority_vektor_alternatif', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alternatif_id')->nullable()->constrained('alternatifs')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('kriteria_id')->nullable()->constrained('kriterias')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('alternatif_id')->nullable()->constrained('alternatif')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('kriteria_id')->nullable()->constrained('kriteria')->cascadeOnUpdate()->nullOnDelete();
             $table->double('nilai');
             $table->timestamps();
         });

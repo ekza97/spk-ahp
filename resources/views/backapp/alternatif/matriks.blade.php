@@ -6,7 +6,7 @@
         <div class="page-heading">
             @component('components.breadcrumb')
                 @slot('menu')
-                    Matriks Kriteria
+                    Matriks Alternatif &rarr; {{ Helper::getKriteriaNama($jenis-1) }}
                 @endslot
                 @slot('url_sub1')
                     {{ route('home') }}
@@ -28,7 +28,7 @@
                                         <th>Kriteria</th>
                                         @for ($i = 0; $i <= $n - 1; $i++)
                                             <th>
-                                                {{ Helper::getKriteriaNama($i) }}
+                                                {{ Helper::getAlternatifNama($i) }}
                                             </th>
                                         @endfor
                                     </tr>
@@ -37,7 +37,7 @@
                                     @for ($x = 0; $x <= $n - 1; $x++)
                                         <tr>
                                             <td>
-                                                {{ Helper::getKriteriaNama($x) }}
+                                                {{ Helper::getAlternatifNama($x) }}
                                             </td>
                                             @for ($y = 0; $y <= $n - 1; $y++)
                                                 <td>{{ round($matrik[$x][$y], 5) }}</td>
@@ -64,7 +64,7 @@
                                     <tr class="bg-light">
                                         <th>Kriteria</th>
                                         @for ($i = 0; $i <= $n - 1; $i++)
-                                            <th>{{ Helper::getKriteriaNama($i) }}</th>
+                                            <th>{{ Helper::getAlternatifNama($i) }}</th>
                                         @endfor
                                         <th>Jumlah</th>
                                         <th>Priority Vector</th>
@@ -73,7 +73,7 @@
                                 <tbody>
                                     @for ($x = 0; $x <= $n - 1; $x++)
                                         <tr>
-                                            <td>{{ Helper::getKriteriaNama($x) }}</td>
+                                            <td>{{ Helper::getAlternatifNama($x) }}</td>
                                             @for ($y = 0; $y <= $n - 1; $y++)
                                                 <td>{{ round($matrikb[$x][$y], 5) }}</td>
                                             @endfor
@@ -115,12 +115,21 @@
                                     </button>
                                 </a>
                             @else
-                                <a href="{{ route('bobot-alternatif.index',1) }}">
-                                    <button class="btn btn-primary" style="float: right;">
-                                        <i class="bi bi-arrow-right"></i>
-                                        Lanjut
-                                    </button>
-                                </a>
+                                @if ($jenis == Helper::getJumlah('alternatif'))
+                                    <a href="{{ route('ranking.index') }}">
+                                        <button class="btn btn-primary" style="float: right;">
+                                            <i class="bi bi-arrow-right"></i>
+                                            Lanjut
+                                        </button>
+                                    </a>
+                                @else
+                                    <a href="{{ route('bobot-alternatif.index', $jenis + 1) }}">
+                                        <button class="btn btn-primary" style="float: right;">
+                                            <i class="bi bi-arrow-right"></i>
+                                            Lanjut ke {{ Helper::getKriteriaNama($jenis) }}
+                                        </button>
+                                    </a>
+                                @endif
                             @endif
                         </div>
                     </div>

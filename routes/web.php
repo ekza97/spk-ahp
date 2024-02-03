@@ -18,6 +18,7 @@ use App\Http\Controllers\BackApp\PermissionController;
 use App\Http\Controllers\BackApp\BobotKriteriaController;
 use App\Http\Controllers\BackApp\StudentHasExamController;
 use App\Http\Controllers\BackApp\BobotAlternatifController;
+use App\Http\Controllers\BackApp\RankingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,22 +45,13 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kriteria', KriteriaController::class)->except(['create','show']);
     Route::resource('alternatif', AlternatifController::class)->except(['create','show']);
     Route::resource('bobot-kriteria', BobotKriteriaController::class)->except(['create','show']);
-    Route::get('bobot-kriteria/matriks', function () {
-        // dd(Helper::getKriteriaNama(4));
-        $n = Kriteria::count();
-        $matrik = [];
-        return view('backapp.kriteria.matriks',compact('n','matrik'));
+    Route::controller(BobotAlternatifController::class)->group(function () {
+        Route::get('/bobot-alternatif/{id}', 'index')->name('bobot-alternatif.index');
+        Route::post('/bobot-alternatif', 'store')->name('bobot-alternatif.store');
     });
-
-    //Master Data Menu
-    Route::resource('courses', MapelController::class)->except(['create','show']);
-    Route::resource('classroom', KelasController::class)->except(['create','show']);
-    Route::resource('students', StudentController::class)->except(['create','show']);
-    Route::resource('teachers', TeacherController::class)->except(['create']);
-    Route::post('teachers/set-mapel',[TeacherController::class,'setMapel'])->name('teachers.set_mapel');
-    Route::resource('questions', SoalController::class)->except(['create','show']);
-    Route::resource('exams', ExamController::class)->except(['create','show']);
-    Route::resource('exam-students', StudentHasExamController::class)->except(['show']);
+    Route::controller(RankingController::class)->group(function () {
+        Route::get('/ranking', 'index')->name('ranking.index');
+    });
 
     //setting menu
     Route::resource('users', UserController::class)->except(['create','show']);

@@ -29,23 +29,16 @@
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ route('exams.index') }}"
-                    class="menu-link {{ request()->is('exams*') ? 'text-white' : '' }}">
+                <a href="{{ route('bobot-alternatif.index',1) }}"
+                    class="menu-link {{ request()->is('bobot-alternatif*') ? 'text-white' : '' }}">
                     <i class="bi bi-clipboard-data"></i>
                     <span>Perbandingan Alternatif</span>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ route('exam-students.index') }}"
-                    class="menu-link {{ request()->is('exam-students*') ? 'text-white' : '' }}">
-                    <i class="bi bi-file-earmark-text"></i>
-                    <span>Ujian</span>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="index.html" class="menu-link">
-                    <i class="bi bi-file-earmark-text"></i>
-                    <span>Hasil Ujian</span>
+                <a href="{{ route('ranking.index') }}" class="menu-link">
+                    <i class="bi bi-bar-chart-steps"></i>
+                    <span>Hasil Akhir</span>
                 </a>
             </li>
 

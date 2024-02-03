@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('priority_vektor_kriteria', function (Blueprint $table) {
+        Schema::create('ranking', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kriteria_id')->nullable()->constrained('kriteria')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('alternatif_id')->nullable()->constrained('alternatif')->cascadeOnUpdate()->nullOnDelete();
             $table->double('nilai');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('priority_vektor_kriteria');
+        Schema::dropIfExists('ranking');
     }
 };
