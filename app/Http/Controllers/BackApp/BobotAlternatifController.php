@@ -56,7 +56,7 @@ class BobotAlternatifController extends Controller
                     $matrik[$y][$x] = $_POST[$bobot];
                 }
 
-                $this->inputDataPerbandingan($x, $y, ($jenis-1), $matrik[$x][$y]);
+                $this->inputDataPerbandingan($x, $y, ($jenis-1), $matrik[$x][$y], $_POST[$pilih]);
             }
         }
 
@@ -141,7 +141,7 @@ class BobotAlternatifController extends Controller
         //
     }
 
-    private function inputDataPerbandingan($alternatif1, $alternatif2, $kriteriaId, $nilai)
+    private function inputDataPerbandingan($alternatif1, $alternatif2, $kriteriaId, $nilai, $pilih)
     {
         // Get kriteria IDs
         $id_alternatif1 = Helper::getAlternatifID($alternatif1); // Assuming Kriteria is your model
@@ -161,11 +161,13 @@ class BobotAlternatifController extends Controller
                 'alternatif_two' => $id_alternatif2,
                 'kriteria_id' => $id_kriteria,
                 'nilai' => $nilai,
+                'checked' => $pilih,
             ]);
         } else {
             // Update the existing comparison
             $perbandingan->update([
                 'nilai' => $nilai,
+                'checked' => $pilih,
             ]);
         }
     }

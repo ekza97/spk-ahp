@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Alternatif;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use App\DataTables\AlternatifDataTable;
 
@@ -50,7 +51,8 @@ class AlternatifController extends Controller
 
             Alternatif::create([
                 'kode' => strtoupper($request->kode),
-                'nama' => ucwords($request->nama)
+                'nama' => ucwords($request->nama),
+                'created_by' => Auth::id()
             ]);
 
             return response()->json([

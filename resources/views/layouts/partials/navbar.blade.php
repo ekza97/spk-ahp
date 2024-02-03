@@ -28,6 +28,7 @@
                     <span>Perbandingan Kriteria</span>
                 </a>
             </li>
+            @if (Helper::getJumlah('alternatif') >= 3) 
             <li class="menu-item">
                 <a href="{{ route('bobot-alternatif.index',1) }}"
                     class="menu-link {{ request()->is('bobot-alternatif*') ? 'text-white' : '' }}">
@@ -35,6 +36,7 @@
                     <span>Perbandingan Alternatif</span>
                 </a>
             </li>
+            @endif
             <li class="menu-item">
                 <a href="{{ route('ranking.index') }}" class="menu-link">
                     <i class="bi bi-bar-chart-steps"></i>

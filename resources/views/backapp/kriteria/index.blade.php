@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@can('read permission')
+@can('read kriteria')
 
     @section('content')
         <div class="page-heading">

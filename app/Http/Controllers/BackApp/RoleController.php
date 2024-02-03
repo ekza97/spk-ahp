@@ -29,13 +29,11 @@ class RoleController extends Controller
     {
         $modules = [
             'all_permission'        => 'Administrator Permissions',
-            'kontak_kami'          => 'Kontak Kami',
-            'dashboard'          => 'Dashboard Management',
-            'template_doc'          => 'Master Template Management',
-            'tanda_tangan'          => 'Master Tanda Tangan Management',
-            'unit_kerja'            => 'Unit Kerja Management',
-            'jenis_surat'           => 'Jenis Surat Management',
-            'surats'                 => 'Surat Management',
+            // 'kontak_kami'          => 'Kontak Kami',
+            // 'dashboard'          => 'Dashboard Management',
+            'ranking'            => 'Ranking Management',
+            'alternatif'           => 'Alternatif Management',
+            'kriteria'                 => 'Kriteria Management',
             'permission'            => 'Permission Management',
             'role'                  => 'Role Management',
             'user'                  => 'User Management',

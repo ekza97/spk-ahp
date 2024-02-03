@@ -15,6 +15,7 @@ class PerbandinganAlternatif extends Model
         'alternatif_one',
         'alternatif_two',
         'kriteria_id',
+        'checked',
         'nilai'
     ];
 }

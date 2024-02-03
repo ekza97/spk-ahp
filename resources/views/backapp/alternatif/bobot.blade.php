@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@can('read permission')
+@can('bobot alternatif')
 
     @section('content')
         <div class="page-heading">

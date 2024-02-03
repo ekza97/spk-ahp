@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('perbandingan_kriteria', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kriteria_one')->nullable()->constrained('kriteria')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('kriteria_two')->nullable()->constrained('kriteria')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('kriteria_one')->constrained('kriteria')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('kriteria_two')->constrained('kriteria')->cascadeOnUpdate()->nullOnDelete();
             $table->integer('nilai');
+            $table->tinyInteger('checked');
             $table->timestamps();
         });
     }

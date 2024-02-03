@@ -20,7 +20,7 @@
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="topbarUserDropdown">
-                    <li>
+                    {{-- <li>
                         <a class="dropdown-item" href="#">
                             <i class="bi bi-person"></i>
                             My Account
@@ -31,7 +31,7 @@
                             <i class="bi bi-cog"></i>
                             Settings
                         </a>
-                    </li>
+                    </li> --}}
                     <li>
                         <hr class="dropdown-divider">
                     </li>

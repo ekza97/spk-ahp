@@ -14,6 +14,7 @@ class PerbandinganKriteria extends Model
     protected $fillable = [
         'kriteria_one',
         'kriteria_two',
+        'checked',
         'nilai'
     ];
 }

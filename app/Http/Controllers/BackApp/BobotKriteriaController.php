@@ -54,7 +54,7 @@ class BobotKriteriaController extends Controller
                     $matrik[$y][$x] = $_POST[$bobot];
                 }
 
-                $this->inputDataPerbandingan($x, $y, $matrik[$x][$y]);
+                $this->inputDataPerbandingan($x, $y, $matrik[$x][$y], $_POST[$pilih]);
             }
         }
 
@@ -137,7 +137,7 @@ class BobotKriteriaController extends Controller
         //
     }
 
-    private function inputDataPerbandingan($kriteria1, $kriteria2, $nilai)
+    private function inputDataPerbandingan($kriteria1, $kriteria2, $nilai, $pilih)
     {
         // Get kriteria IDs
         $id_kriteria1 = Helper::getKriteriaID($kriteria1); // Assuming Kriteria is your model
@@ -154,11 +154,13 @@ class BobotKriteriaController extends Controller
                 'kriteria_one' => $id_kriteria1,
                 'kriteria_two' => $id_kriteria2,
                 'nilai' => $nilai,
+                'checked' => $pilih,
             ]);
         } else {
             // Update the existing comparison
             $perbandingan->update([
                 'nilai' => $nilai,
+                'checked' => $pilih,
             ]);
         }
     }
