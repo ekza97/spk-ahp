@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::controller(RankingController::class)->group(function () {
         Route::get('/ranking', 'index')->name('ranking.index');
+        Route::get('/ranking/reset', 'destroy')->name('ranking.destroy');
     });
 
     //setting menu

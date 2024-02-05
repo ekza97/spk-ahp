@@ -21,7 +21,7 @@ class KriteriaController extends Controller
     {
         $this->middleware(['auth']);
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -45,7 +45,7 @@ class KriteriaController extends Controller
     {
         try {
             $request->validate([
-                'kode' => 'required|string|max:191',
+                'kode' => 'required|string|max:191|unique:kriteria,kode',
                 'nama' => 'required|string|max:191'
             ]);
 
@@ -90,7 +90,7 @@ class KriteriaController extends Controller
             $id = Crypt::decrypt($id);
 
             $request->validate([
-                'kode' => 'required|string|max:191',
+                'kode' => 'required|string|max:191|unique:kriteria,kode,'.$id,
                 'nama' => 'required|string|max:191'
             ]);
 

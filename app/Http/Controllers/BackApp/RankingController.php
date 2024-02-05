@@ -8,6 +8,10 @@ use App\Models\Kriteria;
 use App\Models\Alternatif;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PerbandinganAlternatif;
+use App\Models\PerbandinganKriteria;
+use App\Models\PriorityVektorAlternatif;
+use App\Models\PriorityVektorKriteria;
 
 class RankingController extends Controller
 {
@@ -92,8 +96,14 @@ class RankingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        PerbandinganKriteria::truncate();
+        PerbandinganAlternatif::truncate();
+        PriorityVektorKriteria::truncate();
+        PriorityVektorAlternatif::truncate();
+        Ranking::truncate();
+
+        return to_route('bobot-kriteria.index');
     }
 }

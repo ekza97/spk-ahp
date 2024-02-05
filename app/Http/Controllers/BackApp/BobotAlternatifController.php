@@ -161,13 +161,11 @@ class BobotAlternatifController extends Controller
                 'alternatif_two' => $id_alternatif2,
                 'kriteria_id' => $id_kriteria,
                 'nilai' => $nilai,
-                'checked' => $pilih,
             ]);
         } else {
             // Update the existing comparison
             $perbandingan->update([
                 'nilai' => $nilai,
-                'checked' => $pilih,
             ]);
         }
     }

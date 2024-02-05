@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ranking', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alternatif_id')->constrained('alternatif')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('alternatif_id')->constrained('alternatif')->cascadeOnUpdate()->cascadeOnDelete();
             $table->double('nilai');
             $table->timestamps();
         });

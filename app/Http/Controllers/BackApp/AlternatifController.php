@@ -45,7 +45,7 @@ class AlternatifController extends Controller
     {
         try {
             $request->validate([
-                'kode' => 'required|string|max:191',
+                'kode' => 'required|string|max:191|unique:alternatif,kode',
                 'nama' => 'required|string|max:191'
             ]);
 
@@ -90,7 +90,7 @@ class AlternatifController extends Controller
             $id = Crypt::decrypt($id);
 
             $request->validate([
-                'kode' => 'required|string|max:191',
+                'kode' => 'required|string|max:191|unique:alternatif,kode,'.$id,
                 'nama' => 'required|string|max:191'
             ]);
 

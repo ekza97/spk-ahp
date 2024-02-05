@@ -3,8 +3,8 @@
 @endphp
 @if ($jenis == 'kriteria')
     <form action="{{ route('bobot-kriteria.store') }}" method="post">
-@else
-    <form action="{{ route('bobot-alternatif.store') }}" method="post">
+    @else
+        <form action="{{ route('bobot-alternatif.store') }}" method="post">
 @endif
 @csrf
 <table class="table table-bordered table-hover">
@@ -24,7 +24,7 @@
                     <td>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="pilih{{ $urut }}"
-                                id="pilihan1{{ $urut }}" value="1" {{ $jenis=='kriteria'?(Helper::getCheckedKriteria($x,$y)==1?'checked':''):(Helper::getCheckedAlternatif($x, $y, ($jenis-1))==1?'checked':'') }}>
+                                id="pilihan1{{ $urut }}" value="1" checked>
                             <label class="form-check-label" for="pilihan1{{ $urut }}">
                                 {{ $pilihan[$x] }}
                             </label>
@@ -33,7 +33,7 @@
                     <td>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="pilih{{ $urut }}"
-                                id="pilihan2{{ $urut }}" value="2" {{ $jenis=='kriteria'?(Helper::getCheckedKriteria($x,$y)==2?'checked':''):(Helper::getCheckedAlternatif($x, $y, ($jenis-1))==2?'checked':'') }}>
+                                id="pilihan2{{ $urut }}" value="2">
                             <label class="form-check-label" for="pilihan2{{ $urut }}">
                                 {{ $pilihan[$y] }}
                             </label>
@@ -43,7 +43,7 @@
                         <div class="form-group">
                             <input type="number" min="1" max="9" minlength="1" maxlength="1"
                                 class="form-control" name="bobot{{ $urut }}"
-                                value="{{ old('bobot'.$urut,$jenis == 'kriteria' ? Helper::getNilaiPerbandinganKriteria($x, $y) : Helper::getNilaiPerbandinganAlternatif($x, $y, $jenis - 1)) }}"
+                                value="{{ old('bobot' . $urut, $jenis == 'kriteria' ? Helper::getNilaiPerbandinganKriteria($x, $y) : Helper::getNilaiPerbandinganAlternatif($x, $y, $jenis - 1)) }}"
                                 required>
                         </div>
                     </td>

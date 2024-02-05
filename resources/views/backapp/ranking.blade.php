@@ -91,7 +91,7 @@
 
 
                             <h4 class="mt-4">Perangkingan</h4>
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-bordered table-hover mb-4">
                                 <thead>
                                     <tr class="bg-light">
                                         <th style="width:100px;">Peringkat</th>
@@ -118,6 +118,12 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center">
+                                <a href="{{ route('ranking.destroy') }}" class="btn btn-outline-danger">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                    Hapus Hasil Perhitungan dan Hitung Ulang
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

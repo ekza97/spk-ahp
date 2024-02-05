@@ -155,30 +155,6 @@ class Helper
         return $pv;
     }
 
-    public static function getCheckedKriteria($kriteria1,$kriteria2){
-        $kriteria_one = Helper::getKriteriaID($kriteria1);
-        $kriteria_two = Helper::getKriteriaID($kriteria2);
-
-        $nilai = PerbandinganKriteria::where('kriteria_one', $kriteria_one)
-            ->where('kriteria_two', $kriteria_two)
-            ->value('checked');
-
-        return $nilai ? $nilai : 1;
-    }
-
-    public static function getCheckedAlternatif($alternatif1,$alternatif2,$kriteriaId){
-        $alternatif_one = Helper::getAlternatifID($alternatif1);
-        $alternatif_two = Helper::getAlternatifID($alternatif2);
-        $id_kriteria = Helper::getKriteriaID($kriteriaId);
-
-        $nilai = PerbandinganAlternatif::where('alternatif_one', $alternatif_one)
-            ->where('alternatif_two', $alternatif_two)
-            ->where('kriteria_id', $id_kriteria)
-            ->value('checked');
-
-        return $nilai ? $nilai : 1;
-    }
-
     public static function getNilaiPerbandinganKriteria($kriteria1, $kriteria2)
     {
         $kriteria_one = Helper::getKriteriaID($kriteria1);

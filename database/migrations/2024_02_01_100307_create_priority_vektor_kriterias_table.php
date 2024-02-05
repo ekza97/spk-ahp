@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('priority_vektor_kriteria', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kriteria_id')->constrained('kriteria')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('kriteria_id')->constrained('kriteria')->cascadeOnUpdate()->cascadeOnDelete();
             $table->double('nilai');
             $table->timestamps();
         });

@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('perbandingan_alternatif', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alternatif_one')->constrained('alternatif')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('alternatif_two')->constrained('alternatif')->cascadeOnUpdate()->nullOnDelete();
-            $table->foreignId('kriteria_id')->constrained('kriteria')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId('alternatif_one')->constrained('alternatif')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('alternatif_two')->constrained('alternatif')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('kriteria_id')->constrained('kriteria')->cascadeOnUpdate()->cascadeOnDelete();
             $table->integer('nilai');
-            $table->tinyInteger('checked');
             $table->timestamps();
         });
     }

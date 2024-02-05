@@ -154,13 +154,11 @@ class BobotKriteriaController extends Controller
                 'kriteria_one' => $id_kriteria1,
                 'kriteria_two' => $id_kriteria2,
                 'nilai' => $nilai,
-                'checked' => $pilih,
             ]);
         } else {
             // Update the existing comparison
             $perbandingan->update([
                 'nilai' => $nilai,
-                'checked' => $pilih,
             ]);
         }
     }
